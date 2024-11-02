@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Renter Analysis Tool</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="{% static 'js/income_logic.js' %}"></script>
+</head>
+<body>
+    <h1>Prospective Renter Analysis Toolkit</h1>
+
+    <h2>Description: This tool allows a rental company to assess the financial health of prospective tenants</h2>
+
+    <!-- Tax and Household Characteristic Input Form -->
+    <form method="POST">
+        {% csrf_token %}
+
+        <!-- Input for filing status -->
+        <h3>Filing Status</h3>
+        <label for="filing_status">Select Your Filing Status:</label>
+        <select id="filing_status" name="filing_status" required onchange="updateIncomeFields()">
+            <option value="">--Select Filing Status--</option>
+            <option value="Single">Single</option>
+            <option value="Married Filing Separately">Married Filing Separately</option>
+            <option value="Married Filing Jointly">Married Filing Jointly</option>
+            <option value="Head of Household">Head of Household</option>
+        </select>
+
+        <!-- Total Income Input for Single, Married Filing Jointly, Head of Household -->
+        <div id="income_single" style="display:none;">
+            <label for="total_income">Enter Total Gross Income:</label>
+            <input type="number" step="any" id="total_income" name="total_income">
+        </div>
+
+        <!-- Married Filing Separately Income Inputs -->
+        <div id="income_married_separate" style="display:none;">
+            <label for="income_individual1">Enter Income for Individual 1:</label>
+            <input type="number" step="any" id="income_individual1" name="income_individual1">
+            <br>
+            <label for="income_individual2">Enter Income for Individual 2:</label>
+            <input type="number" step="any" id="income_individual2" name="income_individual2">
+        </div>
+
+        <!-- Input for EITC status -->
+        <h3>EITC Status</h3>
+        <label for="EITC_status">Select Your EITC Status:</label>
+        <select id="EITC_status" name="EITC_status" required onchange="updateIncomeFields()">
+            <option value="">--Select EITC Status--</option>
+            <option value="eligible">Eligible</option>
+            <option value="not_eligible">Not Eligible</option>
+            <option value="unsure">Unsure</option>
+        </select>
+
+        <!-- EITC Eligible Children, will only display if applicant is eligible-->
+        <div id="eitc_kids" style="display:none;">
+            <label for="EITC_children">Enter the number of children eligible to claim under EITC:</label>
+            <input type="number" step="1" id="EITC_children" name="EITC_children">
+        </div>
+
+        <!-- Input for CTC status -->
+        <h3>CTC Status</h3>
+        <label for="CTC_status">Select Your CTC Status:</label>
+        <select id="CTC_status" name="CTC_status" required onchange="updateIncomeFields()">
+            <option value="">--Select EITC Status--</option>
+            <option value="eligible">Eligible</option>
+            <option value="not_eligible">Not Eligible</option>
+            <option value="unsure">Unsure</option>
+        </select>
+
+        <!-- CTC Eligible Children, will only display if applicant is eligible-->
+        <div id="ctc_kids" style="display:none;">
+            <label for="CTC_children">Enter the number of children eligible to claim under CTC:</label>
+            <input type="number" step="1" id="CTC_children" name="CTC_children">
+        </div>
+
+        <!-- Input for CalEITC status -->
+        <h3>CalEITC Status</h3>
+        <label for="CalEITC_status">Select Your CTC Status:</label>
+        <select id="CalEITC_status" name="CalEITC_status" required onchange="updateIncomeFields()">
+            <option value="">--Select EITC Status--</option>
+            <option value="eligible">Eligible</option>
+            <option value="not_eligible">Not Eligible</option>
+            <option value="unsure">Unsure</option>
+        </select>
+
+        <!-- CalEITC Eligible Children, will only display if applicant is eligible-->
+        <div id="caleitc_kids" style="display:none;">
+            <label for="CalEITC_children">Enter the number of children eligible to claim under CalEITC:</label>
+            <input type="number" step="1" id="CalEITC_children" name="CalEITC_children">
+        </div>
+
+        <!-- Input for YCTC status -->
+        <h3>YCTC Status</h3>
+        <label for="YCTC_status">Select Your CTC Status:</label>
+        <select id="YCTC_status" name="YCTC_status" required onchange="updateIncomeFields()">
+            <option value="">--Select EITC Status--</option>
+            <option value="eligible">Eligible</option>
+            <option value="not_eligible">Not Eligible</option>
+            <option value="unsure">Unsure</option>
+        </select>
+
+        <!-- YCTC Eligible Children, will only display if applicant is eligible-->
+        <div id="yctc_kids" style="display:none;">
+            <label for="YCTC_children">Enter the number of children eligible to claim under CTC:</label>
+            <input type="number" step="1" id="YCTC_children" name="YCTC_children">
+        </div>
+
+        <!-- Input for City: -->
+        <h3>City</h3>
+        <label for="city">Select Your city:</label>
+        <select id="city" name="city">
+            <option value="">--Select City Status--</option>
+            <option value="Los Angeles">Los Angeles</option>
+            <option value="Sacramento">Sacramento</option>
+            <option value="San Diego">San Diego</option>
+            <option value="San Francisco">San Francisco</option>
+            <option value="San Jose">San Jose</option>
+        </select>
+
+        <!-- Input for the number of Independents / Adults -->
+        <h3>Number of Adults</h3>
+        <label for="income_hh_membersN">Enter the number of adults in the household</label>
+        <input type="number" step="1" id="income_hh_membersN" name="income_hh_membersN" required>
+
+        <!-- Input for Number of Dependents -->
+        <h3>Number of Children</h3>
+        <label for="nonincome_hh_membersN">Enter the number of children in the household</label>
+        <input type="number" step="1" id="nonincome_hh_membersN" name="nonincome_hh_membersN" required onchange="updateHouseholdFields()">
+
+        <!-- Input for Private School -->
+        <div id="childrenW_privateschoolN_container" style="display:none;">
+            <label for="childrenW_privateschoolN">Enter the number of children receiving private school education:</label>
+            <input type="number" step="1" id="childrenW_privateschoolN" name="childrenW_privateschoolN">
+        </div>
+
+        <!-- Input for Childcare -->
+        <div id="childrenW_childcareN_container" style="display:none;">
+            <label for="childrenW_childcareN">Enter the number of children receiving full-time childcare:</label>
+            <input type="number" step="1" id="childrenW_childcareN" name="childrenW_childcareN">
+        </div>
+
+        <!-- Input for Number of Pets -->
+        <h3>Number of Pets</h3>
+        <label for="petsN">Enter the number of pets in the household</label>
+        <input type="number" step="1" id="petsN" name="petsN" required onchange="updateHouseholdFields()">
+
+        <!-- Input for Pet Insurance -->
+        <div id="pet_insN_container" style="display:none;">
+            <label for="pet_insN">Enter the pets under a pet insurance policy:</label>
+            <input type="number" step="1" id="pet_insN" name="pet_insN">
+        </div>
+
+        <!-- Input for the car insurance recipients, broken into age < 25, >= 25 -->
+        <h3>Number of Car Insurance Recipients</h3>
+        <label for="car_insN_U">Enter the number of car insurance recipients under the age 25</label>
+        <input type="number" step="1" id="car_insN_U" name="car_insN_U" required>
+        <br>
+        <label for="car_insN_L">Enter the number of car insurance recipients over the age 25</label>
+        <input type="number" step="1" id="car_insN_L" name="car_insN_L" required>
+
+        <!-- Input for the number of health insurance recipients -->
+        <h3>Health Insurance</h3>
+        <label for="health_insN">Enter the number of health insurance recipients in the household</label>
+        <input type="number" step="1" id="health_insN" name="health_insN" required>
+
+        <!-- Input for the number of car loans -->
+        <h3>Car Loans</h3>
+        <label for="car_loansN">Enter the number of cars with car loans the applicant(s) have</label>
+        <input type="number" step="1" id="car_loansN" name="car_loansN" required>
+
+        <!-- Input for the number of people on the phone plan -->
+        <h3>Phone Plan</h3>
+        <label for="phone_planN">Enter the number of members on the phone plan in the household</label>
+        <input type="number" step="1" id="phone_planN" name="phone_planN" required>
+
+        <!-- Input for the number of electric vehicles -->
+        <h3>Electric Vehicles</h3>
+        <label for="EVsN">(If any) Enter the number of electric vehicles</label>
+        <input type="number" step="1" id="EVsN" name="EVsN" required>
+
+        <!-- Input for the number of car loans -->
+        <h3>Vehicles</h3>
+        <label for="CarsN">Enter the total number of vehicles (including electric)</label>
+        <input type="number" step="1" id="CarsN" name="CarsN" required>
+
+        <!-- Input for rent -->
+        <h3>Rent</h3>
+        <label for="Rent">Enter the monthly rent for the property</label>
+        <input type="number" step="1" id="Rent" name="Rent" required>
+
+        <!-- Submit Button -->
+        <button type="submit" name="submit">Assess Financial Health</button>
+    </form>
+
+
+    <!-- Result Dashboard -->
+    <form>
+        {% if results_dict %}
+        <h4>RESULT DASHBOARD</h4>
+
+        <h4>Section One: Important Numbers and Metrics</h4>
+        <h5>Monthly Net Income: ${{ results_dict.monthly_net_income }}</h5>
+        <h5>Estimated Pre-rent Expenditure: ${{ results_dict.prerent_expenditure }}</h5>
+        <h5>Monthly Rent: ${{ results_dict.monthly_rent }}</h5>
+        <h5>Post Rent Expenditure: ${{ results_dict.postrent_expenditure }}</h5>
+        <h5>Rent Income Factor: {{ results_dict.rent_income_factor }}</h5>
+        <h5>{{ rent_income_explanation }}</h5>
+        <h5>Allocated Income Factor: {{ results_dict.allocated_income_factor }}</h5>
+        <h5>{{ allocated_income_explanation }}</h5>
+<!--        <h5>Free Income Factor: {{ results_dict.free_income_factor }}</h5>-->
+        <h5>Free Income: ${{ results_dict.free_income }}</h5>
+        <h5>Free Income per Household Member: ${{ results_dict.free_income_factor_hh }}</h5>
+        <h5>{{ free_income_hh_explanation }}</h5>
+
+
+        <h4>Section Two: Breakdown of Expenses by Category</h4>
+        <h5>Vehicle Expenses: ${{ tot_vehicle_expense }}</h5>
+        <h5>Household Expenses: ${{ tot_household_expense }}</h5>
+        <h5>Demographic Expenses: ${{ tot_demographic_expense }}</h5>
+
+        <h4>Section Three: Expense Plots</h4>
+
+        <div class="chart-container">
+            <div id="vehicle_expense_chart" class="chart"></div>
+            <div id="household_expense_chart" class="chart"></div>
+            <div id="demographic_expense_chart" class="chart"></div>
+            <div id="overall_expense_chart" class="chart"></div>
+        </div>
+
+
+        {% else %}
+        <p>No results to display. Please submit the form.</p>
+        {% endif %}
+
+    </form>
+
+
+    <!-- Display error message if there's an error -->
+{% if messages %}
+    {% for message in messages %}
+        <div class="alert alert-danger">{{ message }}</div>
+    {% endfor %}
+{% endif %}
+
+<script>
+    var chartData = JSON.parse('{{ vehicle_json|safe }}');
+    Plotly.newPlot('vehicle_expense_chart', chartData.data, chartData.layout);
+
+    var chartData1 = JSON.parse('{{ household_json|safe }}');
+    Plotly.newPlot('household_expense_chart', chartData1.data, chartData1.layout);
+
+    var chartData2 = JSON.parse('{{ demographic_json|safe }}');
+    Plotly.newPlot('demographic_expense_chart', chartData2.data, chartData2.layout);
+
+    var chartData3 = JSON.parse('{{ overall_json|safe }}');
+    Plotly.newPlot('overall_expense_chart', chartData3.data, chartData3.layout);
+</script>
+
+
+
+</body>
+</html>

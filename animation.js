@@ -1,4 +1,8 @@
 // script.js
+function switchImage(imagePath) {
+  document.getElementById('graph-display').src = imagePath;
+}
+
 window.addEventListener("scroll", () => {
     const sections = document.querySelectorAll(".page-section");
     const navLinks = document.querySelectorAll(".nav-links a");

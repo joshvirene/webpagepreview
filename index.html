@@ -19,7 +19,6 @@
       <li><a href="#about">About</a></li>
       <li><a href="#Analytics">Analytics</a></li>
       <li><a href="#Method">Method</a></li>
-      <li><a href="#Team">Team</a></li>
       <li><a href="#Testimonials">Testimonials</a></li>
       <li><a href="#Clients">Clients</a></li>
     </ul>
@@ -45,12 +44,74 @@
    <!-- Analysis Section -->
   <section id="Analytics" class="page-section">
     <h2>Analytics</h2>
-    <iframe 
-    src="Eviction Stats/TenantScreen.ai-Draft-Proposal.html" 
-    width="70%" 
-    height="700px" 
-    style="border: none; overflow-y: scroll;">
-  </iframe>
+    <div>
+      <p><i>Costs</i><sup>1,2</sup></p>
+
+      <p>Eviction timeline: 90-120 days (factor into lost rent for the period)</p>
+
+      <p>Court filing costs: $240-$450</p>
+
+      <p>Writ of Possession: $25-$40</p>
+
+      <p>Sheriff Fees: $100-$150</p>
+
+      <p>Process Server Fees: $50-200</p>
+
+      <p>Attorney Fees: $500-$2000 +</p>
+
+      <p>Property Damage: case specific</p>
+
+      <p>Storage / Disposal of Property: case specific</p>
+
+      <p><em>Total estimated minimum cost: $3000 - $4000</em></p>
+    </div>
+
+
+    <!--Figure One-->
+    <div class="figure-block">
+      <div class="carousel">
+        <img class=figure-img" id="graph-display" src="Figures/figure two.png" alt="Graph">
+        <div class="carousel-buttons">
+          <button onclick="switchImage('Figures/figure two.png')">Percentage</button>
+          <button onclick="switchImage('Figures/figure one.png')">Number</button>
+        </div>
+      </div>
+      <p class="figure-caption">
+        A quick glance at these may suggest a decrease in risk to the property management companies due to a lower volume of tenants. On the contrary, we believe that this decline in both percentage and number of renting households indicates economic hardship.
+        It is possible that this decrease in volume is driven by a consolidation in rentals. Such examples of this include people moving back to their parents’ home, moving in with their partner, or increasing the number of lessors in an individual lease.        
+      </p>
+    </div>
+
+    <!--Figure Two-->
+    <div class="figure-block">
+      <img class= "figure-img" src="Figures/figure three.png">
+      <p class="figure-caption">
+        Using the Chained CPI index to adjust prices to 2021 dollars, we show that there is a real increase in the median rent price for Sacramento County. Over the period 2018-2023, the median rent price increased 35% (from $1300 to $1762).
+        Having controlled for inflation, it is clear that rent is a driving factor in the overall increase in cost of living for Sacramento County. Rentals are becoming less affordable to tenants, thereby increasing property managers’ financial risk.
+      </p>
+
+    </div>
+
+    <!--Figure Three-->
+    <div class="figure-block">
+      <img class="figure-img" src="Figures/figure four.png">
+      <p class="figure-caption">
+        Gross rent as a percentage of household income. This measure is self explanatory; it is the rent that tenants pay, as a percentage of the household income. 
+        This figure illustrates the metric in bins, where GRAPHI_15 gives the households whose rent is less than, or equal to 15% of their household income, GRAPHI_15_19.9 is those whose rent is in the range 15% - 19.9%, and so on. 
+        A majority of households in this survey throughout the years have rent greater than, or equal to 35% of their income. These are the households who are likely living paycheck to paycheck, and are perhaps one or two bad months away from not being able to make rent in a given month. 
+        Our analytical methods aim to examine these types of households, and their spending habits closely to make a better determination of whether or not they would constitute a high risk of missing rent. 
+      </p>
+    </div>
+
+    <!-- Source List:-->
+    <div class="source-list">
+      Source List: 
+      <ul  style="list-style-type: none; padding-left: 0;">
+        <li>1. https://www.doorloop.com/laws/california-eviction-process</li>
+        <li>2. https://www.goodlifemgmt.com/blog/california-eviction-process-cost-and-steps/</li>
+        <li>3. (ACS Data) https://dof.ca.gov/reports/demographic-reports/american-community-survey/#ACS2018x1</li>
+      </ul>
+    </div>
   </section>
 
   <section id="Method" class="page-section">
@@ -67,54 +128,15 @@
     </div>
   </section>
 
-  <section id="Team" class="page-section">
-    <h2>Team</h2>
-    <div>
-      <section id="team">
-        <div class="user-profile">
-          <div class="profile-left">
-            <img src="joshvirene_picture.jpg" alt="Team Member Headshot" class="profile-photo">
-          </div>
-          <div class="profile-right">
-            <h3 class="profile-name">Josh Virene, Lead Data Analyst</h3>
-      
-            <div class="profile-section">
-              <h4>Summary</h4>
-              <p>Experienced economist focused on data analytics and risk modeling.</p>
-            </div>
-      
-            <div class="profile-section">
-              <h4>Experience</h4>
-              <ul>
-                <p>Economist, United States Bureau of Reclamation</p>
-                <p>Research Intern, National Aeronautics and Space Administration</p>
-              </ul>
-            </div>
-      
-            <div class="profile-section">
-              <h4>Education</h4>
-              <ul>
-                <p>M.S. in Applied Economics, Univeristy of California, Davis (2024)</p>
-                <p>B.S. in Applied Economics, Colorado State University (2023)</p>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </section>
-    </div>
-  </section>
-
   <section id="Testimonials" class="page-section">
     <h2>Testimonials</h2>
     <p>
-      {}
     </p>
   </section>
 
   <section id="Clients" class="page-section">
     <h2>Clients</h2>
     <p>
-      {}
     </p>
   </section>
 

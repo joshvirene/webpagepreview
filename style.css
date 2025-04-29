@@ -37,7 +37,7 @@
   h2 {
     position: relative;
     display: inline-block;
-    margin-bottom: 4rem;
+    margin-bottom: 2rem;
     text-align: center;
   }
   
@@ -104,43 +104,55 @@
   }
 
 
-  /* profile section */
-  .user-profile {
-    display: flex;
-    gap: 2rem;
-    margin-bottom: 3rem;
-    align-items: flex-start;
+  /* analytics section */  
+  .figure-block {
+    margin-top: 40px;
+    margin-bottom: 20px;       
+    text-align: center;     
+  }
+
+  .carousel {
+    text-align: center;
+    margin-top: 30px;
   }
   
-  .profile-left {
-    flex: 1;
-    max-width: 200px;
+  .carousel-buttons button {
+    margin: 10px;
+    padding: 8px 12px;
+    font-size: 14px;
+    cursor: pointer;
   }
   
-  .profile-photo {
-    width: 100%;
-    height: auto;
-    border-radius: 8px;
-    object-fit: cover;
-    box-shadow: var(--card-shadow);
+  .figure-img {
+    max-width: 100%;       
+    height: auto;         
+    border-radius: 8px;     
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);  
   }
   
-  .profile-right {
-    flex: 3;
+  .figure-caption {
+    font-size: 1.0em;
+    color: var(--text-color);
+    line-height: 1.6; 
+    text-align: center;
+    margin: 0 auto;
+    max-width: 800px;
+    margin-top: 10px;
   }
-  
-  .profile-name {
-    margin-bottom: 1rem;
-    font-size: 1.5rem;
-    color: var(--primary-color);
-  }
-  
-  .profile-section h4 {
-    margin-top: 1rem;
-    color: var(--secondary-color);
+
+  .source-list {
+    font-size: 1.0em;
+    color: var(--text-color);
+    line-height: 1.6; 
+    font-style: italic;
+    text-align: left;
+    margin: 0 auto;
+    max-width: 800px;
+    margin-top: 10px;
   }
 
   .navbar a.active {
   color: #007BFF;
   border-bottom: 2px solid #007BFF;
 }
+
